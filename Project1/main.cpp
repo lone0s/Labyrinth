@@ -5,7 +5,7 @@
 int main()
 {
 
-	Game game("lab10.txt");
+	Game game("TestFiles/lab3.txt");
 
 	game.display();
 
