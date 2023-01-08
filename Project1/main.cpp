@@ -5,11 +5,10 @@
 int main()
 {
 
-	Game game("TestFiles/lab3.txt");
+	game game("lab10.txt");
 
 	game.display();
 
-	Heuristic* h = new onlyLeft();
+	heuristic* h = new test();
 	game.play(*h, true);
-
 }
