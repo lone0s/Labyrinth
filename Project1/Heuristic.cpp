@@ -3,20 +3,23 @@
 bool nothingFront(Player player, Grid grid) {
 
 	std::vector<std::vector<Cells>> laby = grid.getLabyrinth();
-
+	
+	int x = player.getX();
+	int y = player.getY();
+	
 	switch (player.getOrientation())
 	{
 	case up:
-		return laby[player.getY() - 1][player.getX()] == Cells::EMPTY;
+		return laby[y - 1][x] == Cells::EMPTY;
 		break;
 	case right:
-		return laby[player.getY()][player.getX() + 1] == Cells::EMPTY;
+		return laby[y][x + 1] == Cells::EMPTY;
 		break;
 	case down:
-		return laby[player.getY() + 1][player.getX()] == Cells::EMPTY;
+		return laby[y + 1][x] == Cells::EMPTY;
 		break;
 	case left:
-		return laby[player.getY()][player.getX() - 1] == Cells::EMPTY;
+		return laby[y][x - 1] == Cells::EMPTY;
 		break;
 	default:
 		return false;
