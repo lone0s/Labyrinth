@@ -3,22 +3,19 @@
 
 #include <chrono>
 #include <thread>
-Game::Game(std::string file) : grid(file), tracer(), player(tracer) {
+Game::Game(const std::string& file) : grid(file){
 }
 
 void Game::display() {
-
-	grid.display(player);
-
+	grid.display();
 }
 
 void Game::play(Heuristic& heuristic, bool displayed) {
-
 	size_t cpt = 0;
-	while (!grid.isExit(player)) {
+	while (!this->grid.isExit()) {
 		++cpt;
 
-		player.doAction(heuristic.getNextAction(player, grid));
+		grid.getPlayer().doAction(heuristic.getNextAction(grid));
 
 		if (displayed) {
 			display();
@@ -34,14 +31,12 @@ void Game::play(Heuristic& heuristic, bool displayed) {
 			else
 				cpt = 0;
 		}
-
-
 	}
 
-	if (grid.isExit(player)) {
+	if (grid.isExit()) {
 		std::cout << "Player reached the exit" << std::endl;
 
-		std::cout << "Number of moves: " << tracer.getPath().size() << std::endl;
+		std::cout << "Number of moves: " << (size_t)grid.getPlayer()<< std::endl;
 	}
 	else
 		std::cout << "Player haven't reached the exit" << std::endl;

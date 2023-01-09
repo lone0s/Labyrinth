@@ -1,22 +1,22 @@
 #include "Heuristic.h"
 
-bool nothingFront(Player player, Grid grid) {
+bool nothingFront(Grid grid) {
 
 	std::vector<std::vector<Cells>> laby = grid.getLabyrinth();
 
-	switch (player.getOrientation())
+	switch (grid.getPlayer().getOrientation())
 	{
 	case up:
-		return laby[player.getY() - 1][player.getX()] == Cells::EMPTY;
+		return laby[grid.getPlayer().getY() - 1][grid.getPlayer().getX()] == Cells::EMPTY;
 		break;
 	case right:
-		return laby[player.getY()][player.getX() + 1] == Cells::EMPTY;
+		return laby[grid.getPlayer().getY()][grid.getPlayer().getX() + 1] == Cells::EMPTY;
 		break;
 	case down:
-		return laby[player.getY() + 1][player.getX()] == Cells::EMPTY;
+		return laby[grid.getPlayer().getY() + 1][grid.getPlayer().getX()] == Cells::EMPTY;
 		break;
 	case left:
-		return laby[player.getY()][player.getX() - 1] == Cells::EMPTY;
+		return laby[grid.getPlayer().getY()][grid.getPlayer().getX() - 1] == Cells::EMPTY;
 		break;
 	default:
 		return false;
@@ -24,13 +24,13 @@ bool nothingFront(Player player, Grid grid) {
 	}
 }
 
-bool nothingLeft(Player player, Grid grid) {
+bool nothingLeft(Grid grid) {
 
 	std::vector<std::vector<Cells>> laby = grid.getLabyrinth();
-	int x = player.getX();
-	int y = player.getY();
+	int x = grid.getPlayer().getX();
+	int y = grid.getPlayer().getY();
 
-	switch (player.getOrientation())
+	switch (grid.getPlayer().getOrientation())
 	{
 	case up:
 		return laby[y][x - 1] == Cells::WALL;
@@ -50,13 +50,13 @@ bool nothingLeft(Player player, Grid grid) {
 	}
 }
 
-bool nothingRight(Player player, Grid grid) {
+bool nothingRight(Grid grid) {
 
 	std::vector<std::vector<Cells>> laby = grid.getLabyrinth();
-	int x = player.getX();
-	int y = player.getY();
+	int x = grid.getPlayer().getX();
+	int y = grid.getPlayer().getY();
 
-	switch (player.getOrientation())
+	switch (grid.getPlayer().getOrientation())
 	{
 	case up:
 		return laby[y][x + 1] == Cells::WALL;
@@ -76,23 +76,23 @@ bool nothingRight(Player player, Grid grid) {
 	}
 }
 
-std::vector<Action> possibleActions(Player player, Grid grid) {
+std::vector<Action> possibleActions(Grid grid) {
 	std::vector<Action> actions;
-	if (nothingFront(player, grid)) {
+	if (nothingFront(grid)) {
 		actions.push_back(Action::GO_FORWARD);
 	}
-	if (nothingLeft(player, grid)) {
+	if (nothingLeft(grid)) {
 		actions.push_back(Action::TURN_LEFT);
 	}
-	if (nothingRight(player, grid)) {
+	if (nothingRight(grid)) {
 		actions.push_back(Action::TURN_RIGHT);
 	}
 	return actions;
 }
 
-Action onlyLeft::getNextAction(Player player, Grid grid)
+Action onlyLeft::getNextAction(Grid grid)
 {
-	if (!nothingFront(player, grid)) {
+	if (!nothingFront(grid)) {
 		return Action::TURN_LEFT;
 	}
 	else {

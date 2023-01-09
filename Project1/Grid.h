@@ -19,16 +19,22 @@ class Grid
 	char wallChar;
 	char emptyChar;
 
+	Player player;
+
 	size_t width;
 	size_t height;
 
 
 public:
-	Grid(std::string file, char wallChar = '#', char emptyChar = ' ');
+	explicit Grid(std::string file, char wallChar = '#', char emptyChar = ' ');
 
-	void display(Player player);
+	inline Player getPlayer() const {
+		return this->player;
+	};
 
-	bool isExit(Player player);
+	void display();
+
+	bool isExit();
 
 	std::vector<std::vector<Cells>> getLabyrinth() const;
 };

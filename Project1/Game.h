@@ -16,17 +16,13 @@
 */
 class Game
 {
-
 	Grid grid;
-	Player player;
-	Tracer tracer;
-
 public:
 	/**
 	* @brief Constructs a new Game object and initializes it with the maze from the specified file.
 	* @param file The name of the file containing the maze.
 	*/
-	Game(std::string file);
+	Game(const std::string& file);
 
 	/**
 	 * @brief Displays the current state of the maze and the progress of the player solving it.

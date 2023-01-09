@@ -1,7 +1,8 @@
 #include "Grid.h"
 
 
-Grid::Grid(std::string file, char wallChar, char emptyChar) : wallChar(wallChar), emptyChar(emptyChar) {
+Grid::Grid(std::string file, char wallChar, char emptyChar) : wallChar(wallChar), emptyChar(emptyChar), player() {
+	
 	std::ifstream infile(file);
 	std::string line;
 
@@ -29,7 +30,7 @@ Grid::Grid(std::string file, char wallChar, char emptyChar) : wallChar(wallChar)
 		infile.close();
 	}
 	else {
-		std::cerr << "Unable to open file" << std::endl;
+		throw std::invalid_argument("Unable to open file");
 	}
 	width = labyrinth[0].size();
 	height = labyrinth.size();
@@ -38,19 +39,17 @@ Grid::Grid(std::string file, char wallChar, char emptyChar) : wallChar(wallChar)
 	labyrinth[height - 2][width - 2] = Cells::EXIT;
 	labyrinth[0][0] = Cells::WALL;
 	labyrinth[0][1] = Cells::WALL;
+
 	labyrinth[0][2] = Cells::WALL;
 	labyrinth[1][0] = Cells::WALL;
-	//Pq tu fais ça ?
-	labyrinth[height - 1].push_back(Cells::WALL);
-	labyrinth[height - 2].push_back(Cells::WALL);
 }
 
-void Grid::display(Player player) {
+void Grid::display() {
 	std::stringstream ss;
 	for (int y = 0; y < height; ++y) {
 		for (int x = 0; x < labyrinth[y].size(); ++x) {
-			if (player.getX() == x && player.getY() == y) {
-				ss << player.getChar();
+			if (this->player.getX() == x && this->player.getY() == y) {
+				ss << this->player.getChar();
 			}
 			else if (labyrinth[y][x] == Cells::WALL) {
 				ss << wallChar;
@@ -68,8 +67,8 @@ void Grid::display(Player player) {
 }
 
 
-bool Grid::isExit(Player player) {
-	return labyrinth[player.getY()][player.getX()] == Cells::EXIT;
+bool Grid::isExit() {
+	return labyrinth[this->player.getY()][this->player.getX()] == Cells::EXIT;
 }
 
 

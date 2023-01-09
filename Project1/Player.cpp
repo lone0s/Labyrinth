@@ -1,5 +1,5 @@
 #include "Player.h"
-Player::Player(Tracer& t) : t(&t), orientation(right), x(1), y(1) {}
+Player::Player() : tracer(), orientation(right), x(1), y(1) {}
 
 
 int Player::getX() const {
@@ -37,7 +37,7 @@ char Player::getChar() const {
 }
 
 void Player::goForward() {
-	t->add(orientation);
+	tracer.add(orientation);
 	switch (orientation)
 	{
 	case up:

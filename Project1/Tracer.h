@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 #include "Orientation.h"
 class Tracer
 {
@@ -15,5 +16,11 @@ public:
 	inline std::vector<Orientation> getPath() const {
 		return this->path;
 	};
+
+	friend std::ostream& operator << (std::ostream& stream, const Tracer& tracer) {
+		//Temporaire !!!
+		stream << tracer.path.size();
+		return stream;
+	}
 };
 

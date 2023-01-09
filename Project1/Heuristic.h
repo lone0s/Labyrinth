@@ -7,14 +7,14 @@ class Heuristic
 
 public:
 
-	virtual Action getNextAction(Player player, Grid grid) = 0;
+	virtual Action getNextAction(Grid grid) = 0;
 
 };
 
 class onlyLeft : public Heuristic
 {
 public:
-	Action getNextAction(Player player, Grid grid) override;
+	Action getNextAction(Grid grid) override;
 };
 
 
