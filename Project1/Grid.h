@@ -28,7 +28,7 @@ class Grid
 public:
 	explicit Grid(std::string file, char wallChar = '#', char emptyChar = ' ');
 
-	inline Player getPlayer() const {
+	inline Player& getPlayer() {
 		return this->player;
 	};
 
