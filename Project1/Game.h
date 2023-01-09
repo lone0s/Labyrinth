@@ -1,9 +1,8 @@
 /**
-
-@file Game.h
-@brief Declares the Game class which is used to solve a maze.
-@author
+* @file Game.h
+* @brief Declares the Game class which is used to solve a maze.
 */
+
 #pragma once
 #include "Grid.h"
 #include "Player.h"
@@ -11,12 +10,9 @@
 #include "Heuristic.h"
 
 /**
-
-@class Game
-
-@brief The main class for solving a maze.
-
-The Game class holds a grid, player, and tracer objects, and uses them to solve a maze. It can also display the maze and its progress in solving it.
+* @class Game
+* @brief The main class for solving a maze. 
+* The Game class holds a grid, player, and tracer objects, and uses them to solve a maze. It can also display the maze and its progress in solving it.
 */
 class Game
 {
