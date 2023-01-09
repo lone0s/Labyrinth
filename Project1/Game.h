@@ -21,9 +21,9 @@ The Game class holds a grid, player, and tracer objects, and uses them to solve 
 class Game
 {
 
-Grid grid;
-Player player;
-Tracer tracer;
+	Grid grid;
+	Player player;
+	Tracer tracer;
 
 public:
 	/**
