@@ -7,6 +7,12 @@
 #include "Cells.h"
 #include "Player.h"
 
+enum class Cells {
+	EMPTY,
+	WALL,
+	EXIT
+};
+
 class Grid
 {
 	std::vector<std::vector<Cells>> labyrinth;

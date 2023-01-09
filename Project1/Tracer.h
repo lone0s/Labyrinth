@@ -6,10 +6,14 @@ class Tracer
 	std::vector<Orientation> path;
 
 public:
-	Tracer();
+	Tracer() {};
 
-	void add(Orientation orientation);
+	inline void add(const Orientation orientation) {
+		this->path.push_back(orientation);
+	};
 
-	std::vector<Orientation> getPath() const;
+	inline std::vector<Orientation> getPath() const {
+		return this->path;
+	};
 };
 

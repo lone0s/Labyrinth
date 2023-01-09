@@ -33,11 +33,14 @@ Grid::Grid(std::string file, char wallChar, char emptyChar) : wallChar(wallChar)
 	}
 	width = labyrinth[0].size();
 	height = labyrinth.size();
+
+
 	labyrinth[height - 2][width - 2] = Cells::EXIT;
 	labyrinth[0][0] = Cells::WALL;
 	labyrinth[0][1] = Cells::WALL;
 	labyrinth[0][2] = Cells::WALL;
 	labyrinth[1][0] = Cells::WALL;
+	//Pq tu fais ça ?
 	labyrinth[height - 1].push_back(Cells::WALL);
 	labyrinth[height - 2].push_back(Cells::WALL);
 }
