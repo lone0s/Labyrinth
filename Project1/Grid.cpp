@@ -9,19 +9,23 @@ Grid::Grid(std::string file, char wallChar, char emptyChar) : wallChar(wallChar)
 	if (infile.is_open()) {
 		std::vector<Cells> row;
 		while (std::getline(infile, line)) {
-
+			
+			int cpt = 1;
 			for (int i = 0; i < line.length(); i++) {
-				if (line[i] == emptyChar) {
-					row.push_back(Cells::EMPTY);
-				}
-				else if (line[i] == wallChar) {
-					row.push_back(Cells::WALL);
-				}
-				else {
-					std::cerr << "Error, invalid char \" "
-						<< line[i]
-						<< " \" found in text file"
-						<< std::endl;
+				++cpt;
+				if (cpt % 3 != 0) {
+					if (line[i] == emptyChar) {
+						row.push_back(Cells::EMPTY);
+					}
+					else if (line[i] == wallChar) {
+						row.push_back(Cells::WALL);
+					}
+					else {
+						std::cerr << "Error, invalid char \" "
+							<< line[i]
+							<< " \" found in text file"
+							<< std::endl;
+					}
 				}
 			}
 			labyrinth.push_back(row);
@@ -64,6 +68,7 @@ void Grid::display() {
 		ss << std::endl;
 	}
 	std::cout << ss.str();
+	
 }
 
 
