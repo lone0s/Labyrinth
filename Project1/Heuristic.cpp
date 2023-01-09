@@ -1,6 +1,6 @@
 #include "Heuristic.h"
 
-bool nothingFront(Grid grid) {
+bool nothingFront(Grid& grid) {
 
 	std::vector<std::vector<Cells>> laby = grid.getLabyrinth();
 	
@@ -27,7 +27,7 @@ bool nothingFront(Grid grid) {
 	}
 }
 
-bool nothingLeft(Grid grid) {
+bool nothingLeft(Grid& grid) {
 
 	std::vector<std::vector<Cells>> laby = grid.getLabyrinth();
 	int x = grid.getPlayer().getX();
@@ -53,7 +53,7 @@ bool nothingLeft(Grid grid) {
 	}
 }
 
-bool nothingRight(Grid grid) {
+bool nothingRight(Grid& grid) {
 
 	std::vector<std::vector<Cells>> laby = grid.getLabyrinth();
 	int x = grid.getPlayer().getX();

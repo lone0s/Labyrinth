@@ -1,7 +1,7 @@
 #include "Grid.h"
 
 
-Grid::Grid(std::string file, char wallChar, char emptyChar) : wallChar(wallChar), emptyChar(emptyChar), player() {
+Grid::Grid(const std::string& file, char wallChar, char emptyChar) : wallChar(wallChar), emptyChar(emptyChar), player() {
 	
 	std::ifstream infile(file);
 	std::string line;
@@ -44,7 +44,7 @@ Grid::Grid(std::string file, char wallChar, char emptyChar) : wallChar(wallChar)
 	labyrinth[1][0] = Cells::WALL;
 }
 
-void Grid::display() {
+void Grid::display() const{
 	std::stringstream ss;
 	for (int y = 0; y < height; ++y) {
 		for (int x = 0; x < labyrinth[y].size(); ++x) {
@@ -67,7 +67,7 @@ void Grid::display() {
 }
 
 
-bool Grid::isExit() {
+bool Grid::isExit() const{
 	return labyrinth[this->player.getY()][this->player.getX()] == Cells::EXIT;
 }
 

@@ -26,15 +26,15 @@ class Grid
 
 
 public:
-	explicit Grid(std::string file, char wallChar = '#', char emptyChar = ' ');
+	explicit Grid(const std::string& file, char wallChar = '#', char emptyChar = ' ');
 
 	inline Player& getPlayer() {
 		return this->player;
 	};
 
-	void display();
+	void display() const;
 
-	bool isExit();
+	bool isExit() const;
 
 	std::vector<std::vector<Cells>> getLabyrinth() const;
 };
