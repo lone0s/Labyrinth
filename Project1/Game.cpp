@@ -9,7 +9,7 @@ void Game::display() {
 	grid.display();
 }
 
-void Game::play(Heuristic& heuristic, bool displayed, bool notEpileptic) {
+void Game::play(Heuristic& heuristic, bool displayed) {
 	while (!this->grid.isExit()) {
 		++cpt;
 		for (Action action : heuristic.getNextAction(this->grid)) {
@@ -19,9 +19,6 @@ void Game::play(Heuristic& heuristic, bool displayed, bool notEpileptic) {
 		if (displayed) {
 			display();
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
-			if (notEpileptic){
-				system("cls");
-			}
 		}
 
 		if (cpt > 1000000) {
@@ -32,11 +29,6 @@ void Game::play(Heuristic& heuristic, bool displayed, bool notEpileptic) {
 				break;
 			else
 				cpt = 0;
-		}
-
-		if (cpt % 10000 == 0) {
-			std::cout << cpt << std::endl;
-			display();
 		}
 			
 	}

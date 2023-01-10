@@ -14,6 +14,12 @@ class Player
 	void turnLeft();
 	void turnRight();
 	void goForward();
+	void turnBack();
+
+	void goUp();
+	void goRight();
+	void goDown();
+	void goLeft();
 
 public:
 	Player();
@@ -27,8 +33,6 @@ public:
 	int getOrientation() const;
 
 	char getChar() const;
-
-	void turnBack();
 
 	void doAction(Action action);
 

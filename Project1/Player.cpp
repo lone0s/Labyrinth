@@ -69,6 +69,26 @@ void Player::turnBack() {
 	orientation = Orientation(((orientation + 2) % 4));
 }
 
+void Player::goUp() {
+	y--;
+	orientation = up;
+}
+
+void Player::goRight() {
+	x++;
+	orientation = right;
+}
+
+void Player::goDown() {
+	y++;
+	orientation = down;
+}
+
+void Player::goLeft() {
+	x--;
+	orientation = left;
+}
+
 
 void Player::doAction(Action action) {
 
@@ -85,6 +105,18 @@ void Player::doAction(Action action) {
 		break;
 	case Action::TURN_BACK:
 		this->turnBack();
+		break;
+	case Action::GO_UP:
+		this->goUp();
+		break;
+	case Action::GO_RIGHT:
+		this->goRight();
+		break;
+	case Action::GO_DOWN:
+		this->goDown();
+		break;
+	case Action::GO_LEFT:
+		this->goLeft();
 		break;
 	default:
 		break;

@@ -34,7 +34,7 @@ public:
 	 * @param heuristic The heuristic to use for guiding the player.
 	 * @param displayed Whether to display the progress of the player solving the maze.
 	 */
-	void play(Heuristic& heuristic, bool displayed = false, bool notEpileptic = true);
+	void play(Heuristic& heuristic, bool displayed = false);
 };
 
 

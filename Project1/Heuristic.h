@@ -3,9 +3,10 @@
 #include "Grid.h"
 
 #include <stdlib.h>
+#include <Windows.h>
+
 class Heuristic
 {
-
 public:
 
 	virtual std::vector<Action> getNextAction(Grid& grid) = 0;
@@ -32,6 +33,7 @@ public:
 
 class choseCrossroad : public Heuristic
 {
+	bool forcedDisplay = true;
 public:
 	std::vector<Action> getNextAction(Grid& grid) override;
 };

@@ -13,11 +13,6 @@ std::vector<Action> onlyLeft::getNextAction(Grid& grid)
 		nextActions.push_back(Action::GO_FORWARD);
 	}
 	return nextActions;
-	//std::vector<Action> actions = possibleActions(grid);
-	//if (std::find(actions.begin(), actions.end(), Action::GO_FORWARD) != actions.end())
-	//	return Action::GO_FORWARD;
-	//else if (std::find(actions.begin(), actions.end(), Action::TURN_LEFT) != actions.end())
-	//	return Action::TURN_LEFT;
 }
 
 std::vector<Action> onlyRight::getNextAction(Grid& grid)
@@ -35,7 +30,7 @@ std::vector<Action> onlyRight::getNextAction(Grid& grid)
 std::vector<Action> randomCrossroad::getNextAction(Grid& grid)
 {
 	std::vector<Action> nextActions;
-	std::vector<Action> actions = grid.possibleActions();
+	std::vector<Action> actions = grid.possibleRelativeActions();
 	
 	if (actions.size() == 1) {
 		nextActions.push_back(actions[0]);
@@ -53,40 +48,45 @@ std::vector<Action> randomCrossroad::getNextAction(Grid& grid)
 std::vector<Action> choseCrossroad::getNextAction(Grid& grid)
 {
 	std::vector<Action> nextActions;
-	std::vector<Action> actions = grid.possibleActions();
+	std::vector<Action> actions = grid.possibleRelativeActions();
 	if (actions.size() == 1) {
+		
 		nextActions.push_back(actions[0]);
 		if (nextActions[0] != Action::GO_FORWARD) {
 			nextActions.push_back(Action::GO_FORWARD);
 		}
 	}
 	else {
-		//ask in the console which action to take
-		//display the possible actions
-		std::cout << "Possible actions: " << std::endl;
-		for (int i = 0; i < actions.size(); i++) {
-			if (actions[i] == Action::GO_FORWARD) {
-				std::cout << i << " : Go forward" << std::endl;
+
+		std::cout << "Use arrow keys to move " << std::endl;
+		
+		Action choice = Action::INVALID;
+		
+		while (choice == Action::INVALID) {
+			if (GetAsyncKeyState(VK_UP) & 0x8000) {   // arrow up key
+				choice = Action::GO_UP;
 			}
-			else if (actions[i] == Action::TURN_LEFT) {
-				std::cout << i << " : Turn left" << std::endl;
+			else if (GetAsyncKeyState(VK_LEFT) & 0x8000) {    // arrow left key
+				choice = Action::GO_LEFT;
 			}
-			else if (actions[i] == Action::TURN_RIGHT) {
-				std::cout << i << " : Turn right" << std::endl;
+			else if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {   // arrow right key
+				choice = Action::GO_RIGHT;
 			}
-			else if (actions[i] == Action::TURN_BACK) {
-				std::cout << i << " : Turn back" << std::endl;
+			else if (GetAsyncKeyState(VK_DOWN) & 0x8000) {   // arrow down key
+				choice = Action::GO_DOWN;
 			}
-		}
-		//ask the user to choose an action
-		int choice;
-		std::cout << "Choose an action: ";
-		std::cin >> choice;
-		//return the action
-		nextActions.push_back(actions[choice]);
-		if (actions[choice] != Action::GO_FORWARD) {
-			nextActions.push_back(Action::GO_FORWARD);
+			
+			if (grid.checkAbsoluteActions(choice)) {
+				nextActions.push_back(choice);
+			}
+			else {
+				choice = Action::INVALID;
+			}
+
 		};
+
+
+
 	}
 	return nextActions;
 }

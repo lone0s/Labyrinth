@@ -39,7 +39,8 @@ public:
 	const bool playerHasNothingInFront();
 	const bool playerHasNothingInLeft();
 	const bool playerHasNothingInRight();
-	const std::vector<Action> possibleActions();
+	const std::vector<Action> possibleRelativeActions();
+	const bool checkAbsoluteActions(Action action);
 	
 	std::vector<std::vector<Cells>> getLabyrinth() const;
 };

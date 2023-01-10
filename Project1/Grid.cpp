@@ -152,7 +152,7 @@ const bool Grid::playerHasNothingInRight() {
 	}
 }
 
-const std::vector<Action> Grid::possibleActions() {
+const std::vector<Action> Grid::possibleRelativeActions() {
 	std::vector<Action> actions;
 
 	if (playerHasNothingInFront()) {
@@ -168,4 +168,31 @@ const std::vector<Action> Grid::possibleActions() {
 		actions.push_back(Action::TURN_BACK);
 	}
 	return actions;
+}
+
+const bool Grid::checkAbsoluteActions(Action action) {
+	
+	std::vector<Action> actions;
+	
+	int x = getPlayer().getX();
+	int y = getPlayer().getY();
+	
+	switch (action)
+	{
+	case Action::GO_UP:
+		return labyrinth[y - 1][x] != Cells::WALL;
+		break;
+	case Action::GO_RIGHT:
+		return labyrinth[y][x + 1] != Cells::WALL;
+		break;
+	case Action::GO_DOWN:
+		return labyrinth[y + 1][x] != Cells::WALL;
+		break;
+	case Action::GO_LEFT:
+		return labyrinth[y][x - 1] != Cells::WALL;
+		break;
+	default:
+		return false;
+		break;
+	}
 }
