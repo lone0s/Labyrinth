@@ -5,8 +5,7 @@
 
 #pragma once
 #include "Grid.h"
-#include "Player.h"
-#include "Tracer.h"
+
 #include "Heuristic.h"
 
 /**

@@ -12,25 +12,33 @@ void Game::display() {
 void Game::play(Heuristic& heuristic, bool displayed, bool notEpileptic) {
 	while (!this->grid.isExit()) {
 		++cpt;
-		grid.getPlayer().doAction(heuristic.getNextAction(grid));
+		for (Action action : heuristic.getNextAction(this->grid)) {
+			grid.getPlayer().doAction(action);
+		}
 
 		if (displayed) {
 			display();
-			std::this_thread::sleep_for(std::chrono::milliseconds(80));
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 			if (notEpileptic){
 				system("cls");
 			}
 		}
 
-		if (cpt > 1000) {
+		if (cpt > 1000000) {
 			std::cout << "You may be stuck in a loop, do you want to continue ? (y/n)" << std::endl;
 			char c;
 			std::cin >> c;
 			if (c == 'n')
 				break;
 			else
-				this -> cpt = 0;
+				cpt = 0;
 		}
+
+		if (cpt % 10000 == 0) {
+			std::cout << cpt << std::endl;
+			display();
+		}
+			
 	}
 
 	if (grid.isExit()) {

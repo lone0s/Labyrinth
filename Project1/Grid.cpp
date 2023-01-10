@@ -83,16 +83,16 @@ const bool Grid::playerHasNothingInFront(){
 	switch (player.getOrientation())
 	{
 	case up:
-		return laby[y - 1][x] == Cells::EMPTY;
+		return laby[y - 1][x] != Cells::WALL;
 		break;
 	case right:
-		return laby[y][x + 1] == Cells::EMPTY;
+		return laby[y][x + 1] != Cells::WALL;
 		break;
 	case down:
-		return laby[y + 1][x] == Cells::EMPTY;
+		return laby[y + 1][x] != Cells::WALL;
 		break;
 	case left:
-		return laby[y][x - 1] == Cells::EMPTY;
+		return laby[y][x - 1] != Cells::WALL;
 		break;
 	default:
 		return false;
@@ -109,16 +109,16 @@ const bool Grid::playerHasNothingInLeft() {
 	switch (player.getOrientation())
 	{
 	case up:
-		return laby[y][x - 1] == Cells::WALL;
+		return laby[y][x - 1] != Cells::WALL;
 		break;
 	case right:
-		return laby[y + 1][x] == Cells::WALL;
+		return laby[y - 1][x] != Cells::WALL;
 		break;
 	case down:
-		return laby[y][x + 1] == Cells::WALL;
+		return laby[y][x + 1] != Cells::WALL;
 		break;
 	case left:
-		return laby[y - 1][x] == Cells::WALL;
+		return laby[y + 1][x] != Cells::WALL;
 		break;
 	default:
 		return false;
@@ -135,16 +135,16 @@ const bool Grid::playerHasNothingInRight() {
 	switch (player.getOrientation())
 	{
 	case up:
-		return laby[y][x + 1] == Cells::WALL;
+		return laby[y][x + 1] != Cells::WALL;
 		break;
 	case right:
-		return laby[y - 1][x] == Cells::WALL;
+		return laby[y + 1][x] != Cells::WALL;
 		break;
 	case down:
-		return laby[y][x - 1] == Cells::WALL;
+		return laby[y][x - 1] != Cells::WALL;
 		break;
 	case left:
-		return laby[y + 1][x] == Cells::WALL;
+		return laby[y - 1][x] != Cells::WALL;
 		break;
 	default:
 		return false;
@@ -154,6 +154,7 @@ const bool Grid::playerHasNothingInRight() {
 
 const std::vector<Action> Grid::possibleActions() {
 	std::vector<Action> actions;
+
 	if (playerHasNothingInFront()) {
 		actions.push_back(Action::GO_FORWARD);
 	}
@@ -162,6 +163,9 @@ const std::vector<Action> Grid::possibleActions() {
 	}
 	if (playerHasNothingInRight()) {
 		actions.push_back(Action::TURN_RIGHT);
+	}
+	if (actions.size() == 0) {
+		actions.push_back(Action::TURN_BACK);
 	}
 	return actions;
 }
