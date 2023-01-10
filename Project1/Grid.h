@@ -43,6 +43,8 @@ public:
 	const std::vector<Action> possibleRelativeActions();
 	const bool checkAbsoluteActions(Action action);
 	
+	const void displayPath();
+
 	std::vector<std::vector<Cells>> getLabyrinth() const;
 };
 

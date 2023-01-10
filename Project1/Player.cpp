@@ -121,5 +121,6 @@ void Player::doAction(Action action) {
 		break;
 	}
 
-	tracer.add(orientation);
+	//add tuple of x,y to tracer
+	tracer.add(std::make_tuple(x, y));
 }

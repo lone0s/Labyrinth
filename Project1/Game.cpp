@@ -24,7 +24,7 @@ void Game::play(Heuristic& heuristic, bool displayed) {
 		}
 
 		
-		if (cpt > 1000000) {
+		if (cpt > 1000) {
 			std::cout << "You may be stuck in a loop, do you want to continue ? (y/n)" << std::endl;
 			char c;
 			std::cin >> c;
@@ -40,8 +40,12 @@ void Game::play(Heuristic& heuristic, bool displayed) {
 		if (displayed) {
 			display();
 		}
-		std::cout << "Player reached the exit" << std::endl;
+		std::cout << "\nPlayer reached the exit" << std::endl;
 		std::cout << "Number of moves: " << (size_t)grid.getPlayer()<< std::endl;
+		
+		std::cout << "\n Path used : " << std::endl;
+		grid.displayPath();
+		
 	}
 	else
 		std::cout << "Player haven't reached the exit" << std::endl;

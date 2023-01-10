@@ -205,3 +205,31 @@ const bool Grid::checkAbsoluteActions(Action action) {
 		break;
 	}
 }
+
+const void Grid::displayPath() {
+	std::vector<std::tuple<int,int>> path = player.getTracer().getPath();
+	
+	std::vector<std::vector<Cells>> laby = getLabyrinth();
+	
+	for (int y = 0; y < height; ++y) {
+		for (int x = 0; x < labyrinth[y].size(); ++x) {
+			std::tuple<int, int> pos = std::make_tuple(x, y);
+			
+			if (laby[y][x] == Cells::WALL) {
+				std::cout << wallChar;
+			}
+			else if (laby[y][x] == Cells::EXIT) {
+				std::cout << '@';
+			}
+			else if (std::find(path.begin(), path.end(), pos) != path.end()) {
+				std::cout << '*';
+			}
+			else {
+				std::cout << emptyChar;
+			}
+		}
+		std::cout << std::endl;
+	}
+	
+	
+}
