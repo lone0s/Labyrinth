@@ -36,6 +36,11 @@ public:
 
 	bool isExit() const;
 
+	const bool playerHasNothingInFront();
+	const bool playerHasNothingInLeft();
+	const bool playerHasNothingInRight();
+	const std::vector<Action> possibleActions();
+	
 	std::vector<std::vector<Cells>> getLabyrinth() const;
 };
 

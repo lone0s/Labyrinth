@@ -69,6 +69,7 @@ void Player::turnBack() {
 	orientation = Orientation(((orientation + 2) % 4));
 }
 
+
 void Player::doAction(Action action) {
 
 	switch (action)
@@ -81,6 +82,9 @@ void Player::doAction(Action action) {
 		break;
 	case Action::GO_FORWARD:
 		this->goForward();
+		break;
+	case Action::TURN_BACK:
+		this->turnBack();
 		break;
 	default:
 		break;

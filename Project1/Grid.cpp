@@ -9,23 +9,16 @@ Grid::Grid(const std::string& file, char wallChar, char emptyChar) : wallChar(wa
 	if (infile.is_open()) {
 		std::vector<Cells> row;
 		while (std::getline(infile, line)) {
-			
 			int cpt = 1;
 			for (int i = 0; i < line.length(); i++) {
 				++cpt;
 				if (cpt % 3 != 0) {
-					if (line[i] == emptyChar) {
+					if (line[i] == emptyChar)
 						row.push_back(Cells::EMPTY);
-					}
-					else if (line[i] == wallChar) {
+					else if (line[i] == wallChar)
 						row.push_back(Cells::WALL);
-					}
-					else {
-						std::cerr << "Error, invalid char \" "
-							<< line[i]
-							<< " \" found in text file"
-							<< std::endl;
-					}
+					else
+						throw std::invalid_argument("Error, invalid char found in file : "+ line[i] );
 				}
 			}
 			labyrinth.push_back(row);
@@ -79,4 +72,96 @@ bool Grid::isExit() const{
 
 std::vector<std::vector<Cells>> Grid::getLabyrinth() const {
 	return labyrinth;
+}
+
+const bool Grid::playerHasNothingInFront(){
+	std::vector<std::vector<Cells>> laby = getLabyrinth();
+	const Player player = getPlayer();;
+	int x = getPlayer().getX();
+	int y = getPlayer().getY();
+
+	switch (player.getOrientation())
+	{
+	case up:
+		return laby[y - 1][x] == Cells::EMPTY;
+		break;
+	case right:
+		return laby[y][x + 1] == Cells::EMPTY;
+		break;
+	case down:
+		return laby[y + 1][x] == Cells::EMPTY;
+		break;
+	case left:
+		return laby[y][x - 1] == Cells::EMPTY;
+		break;
+	default:
+		return false;
+		break;
+	}
+}
+
+const bool Grid::playerHasNothingInLeft() {
+	std::vector<std::vector<Cells>> laby = getLabyrinth();
+	const Player player = getPlayer();;
+	const int x = getPlayer().getX();
+	const int y = getPlayer().getY();
+
+	switch (player.getOrientation())
+	{
+	case up:
+		return laby[y][x - 1] == Cells::WALL;
+		break;
+	case right:
+		return laby[y + 1][x] == Cells::WALL;
+		break;
+	case down:
+		return laby[y][x + 1] == Cells::WALL;
+		break;
+	case left:
+		return laby[y - 1][x] == Cells::WALL;
+		break;
+	default:
+		return false;
+		break;
+	}
+}
+
+const bool Grid::playerHasNothingInRight() {
+	std::vector<std::vector<Cells>> laby = getLabyrinth();
+	const Player player = getPlayer();;
+	const int x = getPlayer().getX();
+	const int y = getPlayer().getY();
+
+	switch (player.getOrientation())
+	{
+	case up:
+		return laby[y][x + 1] == Cells::WALL;
+		break;
+	case right:
+		return laby[y - 1][x] == Cells::WALL;
+		break;
+	case down:
+		return laby[y][x - 1] == Cells::WALL;
+		break;
+	case left:
+		return laby[y + 1][x] == Cells::WALL;
+		break;
+	default:
+		return false;
+		break;
+	}
+}
+
+const std::vector<Action> Grid::possibleActions() {
+	std::vector<Action> actions;
+	if (playerHasNothingInFront()) {
+		actions.push_back(Action::GO_FORWARD);
+	}
+	if (playerHasNothingInLeft()) {
+		actions.push_back(Action::TURN_LEFT);
+	}
+	if (playerHasNothingInRight()) {
+		actions.push_back(Action::TURN_RIGHT);
+	}
+	return actions;
 }

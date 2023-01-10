@@ -7,14 +7,14 @@ class Heuristic
 
 public:
 
-	virtual Action getNextAction(Grid grid) = 0;
-
+	virtual Action getNextAction(Grid& grid) = 0;
+	//static inline std::vector<Action> availableNextActions(Grid& grid);
 };
 
 class onlyLeft : public Heuristic
 {
 public:
-	Action getNextAction(Grid grid) override;
+	Action getNextAction(Grid& grid) override;
 };
 
 
