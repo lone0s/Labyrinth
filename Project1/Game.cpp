@@ -11,16 +11,19 @@ void Game::display() {
 
 void Game::play(Heuristic& heuristic, bool displayed) {
 	while (!this->grid.isExit()) {
-		++cpt;
-		for (Action action : heuristic.getNextAction(this->grid)) {
-			grid.getPlayer().doAction(action);
-		}
 
 		if (displayed) {
 			display();
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		}
 
+		
+		++cpt;
+		for (Action action : heuristic.getNextAction(this->grid)) {
+			grid.getPlayer().doAction(action);
+		}
+
+		
 		if (cpt > 1000000) {
 			std::cout << "You may be stuck in a loop, do you want to continue ? (y/n)" << std::endl;
 			char c;
@@ -34,6 +37,9 @@ void Game::play(Heuristic& heuristic, bool displayed) {
 	}
 
 	if (grid.isExit()) {
+		if (displayed) {
+			display();
+		}
 		std::cout << "Player reached the exit" << std::endl;
 		std::cout << "Number of moves: " << (size_t)grid.getPlayer()<< std::endl;
 	}

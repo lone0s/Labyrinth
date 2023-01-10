@@ -37,7 +37,6 @@ char Player::getChar() const {
 }
 
 void Player::goForward() {
-	tracer.add(orientation);
 	switch (orientation)
 	{
 	case up:
@@ -122,4 +121,5 @@ void Player::doAction(Action action) {
 		break;
 	}
 
+	tracer.add(orientation);
 }

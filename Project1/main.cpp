@@ -6,6 +6,6 @@ int main()
 {
 	Game game("../TestFiles/lab3.txt");
 
-	Heuristic* h = new randomCrossroad();
+	Heuristic* h = new chooseAll();
 	game.play(*h, true);
 }
