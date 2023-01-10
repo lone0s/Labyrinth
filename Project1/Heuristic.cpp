@@ -57,9 +57,7 @@ std::vector<Action> chooseCrossroad::getNextAction(Grid& grid)
 		}
 	}
 	else {
-
 		std::cout << "Use arrow keys to move " << std::endl;
-		
 		Action choice = Action::INVALID;
 		
 		while (choice == Action::INVALID) {
@@ -82,11 +80,7 @@ std::vector<Action> chooseCrossroad::getNextAction(Grid& grid)
 			else {
 				choice = Action::INVALID;
 			}
-
 		};
-
-
-
 	}
 	return nextActions;
 }
@@ -157,7 +151,5 @@ std::vector<Action> stairs::getNextAction(Grid& grid)
 				nextActions.push_back(Action::GO_UP);
 		}
 	}
-
 	return nextActions;
-
 }

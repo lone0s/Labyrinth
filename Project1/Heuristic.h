@@ -8,9 +8,7 @@
 class Heuristic
 {
 public:
-
 	virtual std::vector<Action> getNextAction(Grid& grid) = 0;
-	//static inline std::vector<Action> availableNextActions(Grid& grid);
 };
 
 class onlyLeft : public Heuristic
