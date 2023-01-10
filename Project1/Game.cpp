@@ -24,7 +24,7 @@ void Game::play(Heuristic& heuristic, bool displayed) {
 		}
 
 		
-		if (cpt > 1000000) {
+		if (cpt > 1000) {
 			std::cout << "You may be stuck in a loop, do you want to continue ? (y/n)" << std::endl;
 			char c;
 			std::cin >> c;

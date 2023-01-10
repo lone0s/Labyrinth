@@ -15,22 +15,21 @@ int mainCLI()
 	std::vector<std::string> heuristicNames{
 	"onlyRight",
 	"onlyLeft",
-	"embranchementUser",
-	"escalier",
-	"userInput"
+	"chooseCrossroad",
+	"randomCrossroad",
+	"stairsstairs",
+	"chooseAll"
 	};
 	size_t heuristicIndex = 0;
 	bool heuristicChosen = false;
-	std::string heuristicName;
+	std::string heuristicIndexStr;
 
 	bool forcedDisplay = false;
 	bool display = false;
 
 	Heuristic* h = nullptr;
 
-
 	
-
 	//Header CLI
 	std::cout << "  __  __                                               \n"
 		" |  \\/  |                                  _       _   \n"
@@ -43,64 +42,71 @@ int mainCLI()
 
 	std::cout << "    --------------------------------------    \n\n";
 	std::cout << "Welcome to the Labyrinth Solver !\n\n";
+
+	
 	//Choix du labyrinte
 	std::cout << "Please enter the name of the file you want to solve: ";
-	
 	while (!fileLoaded)
 	{
 		try {
 			std::cin >> fileName;
-			//Penser a le delete
 			game = new Game(testFilesPath + fileName);
 			fileLoaded = true;
 
 		}
 		catch (std::exception& e) {
-			std::cout << "Couldn't open the file, are you sure you've imported in the TestFiles folder?\n\n";
+			std::cout << "\nCouldn't open the file, are you sure you've imported in the TestFiles folder?\n\n";
 			std::cout << "Current files in the TestFiles folder:\n";
 			for (const auto& entry : std::filesystem::directory_iterator("../TestFiles/"))
 				std::cout << "    - " << entry.path() << std::endl;
+			std::cout << std::endl;
 		}
 	}
 
 
-	//Choix de l'héuristique
-	std::cout << "Veuillez entrer le nom de l'heuristique voulue :\n";
+	//Choix de l'heuristique
+	std::cout << "\nVeuillez entrer le numero d'index de l'heuristique voulue :\n";
+	size_t cpt = 0;
 	for (std::string name : heuristicNames)
-		std::cout << "    - " << name << std::endl;
+	{
+		std::cout << "    - " << cpt << " | " << name << std::endl;
+		cpt++;
+	}
 	while (true) {
 		try
 		{
-			std::cin >> heuristicName;
-			heuristicIndex = std::find(heuristicNames.begin(), heuristicNames.end(), heuristicName) != heuristicNames.end();
-			std::cout << heuristicIndex << std::endl;
-
-			heuristicIndex != 0 ? heuristicChosen = true : throw std::exception();
+			std::cin >> heuristicIndexStr;
+			heuristicIndex = std::stoi(heuristicIndexStr);
+			if (heuristicIndex >= heuristicNames.size() || heuristicIndex < 0)
+				throw std::exception();
 			break;
 		}
 		catch (const std::exception&)
 		{
-			std::cout << "Heuristique non reconnue, veuillez réessayer (sensible à la casse)\n";
+			std::cout << "\nHeuristique non reconnue, veuillez reessayer\n";
 		}
 	}
 
 
-	//Init de l'heuristique et du 
+	//Init de l'heuristique
 	switch (heuristicIndex) {
-	case 1:
+	case 0:
 		h = new onlyRight();
 		break;
-	case 2:
+	case 1:
 		h = new onlyLeft();
 		break;
-	case 3:
-		//h = new embranchementUser();
+	case 2:
+		h = new chooseCrossroad();
 		break;
-	case 4:
-		//h = new escalier();
+	case 3:
+		h = new randomCrossroad();
+		break;
+	case 4 :
+		h = new stairs();
 		break;
 	case 5:
-		//h = new userInput();
+		h = new chooseAll();
 		break;
 	default:
 		//h = new userInput();
@@ -113,7 +119,7 @@ int mainCLI()
 	
 	if(!forcedDisplay) {
 		while (true) {
-			std::cout << "Voulez vous afficher l'execution de l'heuristique ? (y/n)\n";
+			std::cout << "\nVoulez vous afficher l'execution de l'heuristique ? (y/n)\n";
 			try {
 				char c;
 				std::cin >> c;
@@ -122,7 +128,7 @@ int mainCLI()
 			}
 			catch (const std::exception& e)
 			{
-				std::cout << "Valeur non reconnue, veuillez réessayer (sensible à la casse)\n";
+				std::cout << "\nValeur non reconnue, veuillez réessayer (sensible à la casse)\n";
 			}
 		}
 	}
@@ -137,7 +143,7 @@ int mainCLI()
 	}
 	
 	
-	//Deleters 
+	//Deleters for used news
 	delete game;
 	delete h;
 
