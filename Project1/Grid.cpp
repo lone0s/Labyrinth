@@ -4,9 +4,11 @@
 Grid::Grid(const std::string& file, char wallChar, char emptyChar) : wallChar(wallChar), emptyChar(emptyChar), player() {
 	
 	std::ifstream infile(file);
+	
 	std::string line;
 
 	if (infile.is_open()) {
+
 		std::vector<Cells> row;
 		while (std::getline(infile, line)) {
 			int cpt = 1;
@@ -17,28 +19,33 @@ Grid::Grid(const std::string& file, char wallChar, char emptyChar) : wallChar(wa
 						row.push_back(Cells::EMPTY);
 					else if (line[i] == wallChar)
 						row.push_back(Cells::WALL);
-					else
-						throw std::invalid_argument("Error, invalid char found in file : "+ line[i] );
+					else{
+						std::cerr << "Error, invalid char found in file : " << line[i] << std::endl;
+						exit(1);
+					}
 				}
 			}
 			labyrinth.push_back(row);
 			row.clear();
 		}
 		infile.close();
+
+		width = labyrinth[0].size();
+		height = labyrinth.size();
+
+
+		labyrinth[height - 2][width - 2] = Cells::EXIT;
+		labyrinth[0][0] = Cells::WALL;
+		labyrinth[0][1] = Cells::WALL;
+
+		labyrinth[0][2] = Cells::WALL;
+		labyrinth[1][0] = Cells::WALL;
 	}
 	else {
-		throw std::invalid_argument("Unable to open file");
+		std::cerr << "Unable to open file " + file << std::endl;
+		exit(1);
 	}
-	width = labyrinth[0].size();
-	height = labyrinth.size();
 
-
-	labyrinth[height - 2][width - 2] = Cells::EXIT;
-	labyrinth[0][0] = Cells::WALL;
-	labyrinth[0][1] = Cells::WALL;
-
-	labyrinth[0][2] = Cells::WALL;
-	labyrinth[1][0] = Cells::WALL;
 }
 
 void Grid::display() const{

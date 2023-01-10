@@ -31,9 +31,21 @@ public:
 	std::vector<Action> getNextAction(Grid& grid) override;
 };
 
-class choseCrossroad : public Heuristic
+class chooseCrossroad : public Heuristic
 {
-	bool forcedDisplay = true;
+public:
+	std::vector<Action> getNextAction(Grid& grid) override;
+};
+
+
+class chooseAll : public Heuristic
+{
+public:
+	std::vector<Action> getNextAction(Grid& grid) override;
+};
+
+class stairs : public Heuristic
+{
 public:
 	std::vector<Action> getNextAction(Grid& grid) override;
 };
