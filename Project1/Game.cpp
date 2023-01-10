@@ -10,22 +10,22 @@ void Game::display() {
 }
 
 void Game::play(Heuristic& heuristic, bool displayed) {
-	while (!this->grid.isExit()) {
+	while (!this->grid.isExit()) { // Tant que le joueur n'a pas atteint la sortie
 
-		if (displayed) {
+		if (displayed) { // Affichage de la grille
 			display();
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		}
 
 		
-		++cpt;
-		for (Action action : heuristic.getNextAction(this->grid)) {
-			grid.getPlayer().doAction(action);
+		++cpt; // Incrémentation du compteur de déplacements
+		for (Action action : heuristic.getNextAction(this->grid)) { // On récupère les actions à effectuer à partir de l'heuristique
+			grid.getPlayer().doAction(action); 						// On effectue chaque action que l'heuristique nous a donné
 		}
 
 		
-		if (cpt > 1000) {
-			std::cout << "You may be stuck in a loop, do you want to continue ? (y/n)" << std::endl;
+		if (cpt > 1000) { // Si le compteur dépasse 1000, on demande à l'utilisateur s'il veut continuer
+			std::cout << "Vous semblez être bloqué dans une boucle, voulez vous continuer ? (y/n)" << std::endl;
 			char c;
 			std::cin >> c;
 			if (c == 'n')
@@ -36,18 +36,20 @@ void Game::play(Heuristic& heuristic, bool displayed) {
 			
 	}
 
-	if (grid.isExit()) {
+	if (grid.isExit()) { // Si le joueur a atteint la sortie
+
 		if (displayed) {
 			display();
 		}
-		std::cout << "\nPlayer reached the exit" << std::endl;
-		std::cout << "Number of moves: " << (size_t)grid.getPlayer()<< std::endl;
+
+		std::cout << "\nLe joueur a atteint la sortie! " << std::endl;
+		std::cout << "Nombre de déplacements : " << (size_t)grid.getPlayer()<< std::endl;
 		
-		std::cout << "\n Path used : " << std::endl;
+		std::cout << "\n Chemin emprunté : " << std::endl;
 		grid.displayPath();
 		
 	}
 	else
-		std::cout << "Player haven't reached the exit" << std::endl;
+		std::cout << "Le joueur n'a pas atteint la sortie..." << std::endl;
 
 }

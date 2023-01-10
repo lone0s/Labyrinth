@@ -152,9 +152,9 @@ int mainCLI()
 
 
 int main() {
-	/*Game game("../testfiles/lab3.txt");
+	Game game("../testfiles/lab3.txt");
 
-	Heuristic* h = new chooseAll();
-	game.play(*h, true);*/
-	mainCLI();
+	Heuristic* h = new stairs();
+	game.play(*h, true);
+	//mainCLI();
 }

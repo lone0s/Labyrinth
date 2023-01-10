@@ -1,6 +1,7 @@
 /**
 * @file Game.h
-* @brief Declares the Game class which is used to solve a maze.
+* @brief Ce fichier contient la définition de la classe Game qui représente une partie de jeu.
+* Il gère les opérations de jeu telles que l'affichage de la grille et le choix des déplacements.
 */
 
 #pragma once
@@ -10,31 +11,29 @@
 
 /**
 * @class Game
-* @brief The main class for solving a maze. 
-* The Game class holds a grid, player, and tracer objects, and uses them to solve a maze. It can also display the maze and its progress in solving it.
+* @brief Represente une partie de jeu 
 */
 class Game
 {
-	Grid grid;
-	size_t cpt;
+    Grid grid;
+    size_t cpt;
 public:
-	/**
-	* @brief Constructs a new Game object and initializes it with the maze from the specified file.
-	* @param file The name of the file containing the maze.
-	*/
-	Game(const std::string& file);
 
-	/**
-	 * @brief Displays the current state of the maze and the progress of the player solving it.
-	 */
-	void display();
+    /**
+    * @brief Constructeur de la classe Game 
+    * @param file fichier contenant les données de la grille de jeu
+    */
+    Game(const std::string& file);
 
-	/**
-	 * @brief Plays the game using the specified heuristic to guide the player.
-	 * @param heuristic The heuristic to use for guiding the player.
-	 * @param displayed Whether to display the progress of the player solving the maze.
-	 */
-	void play(Heuristic& heuristic, bool displayed = false);
+    /**
+    * @brief Affiche la grille courante dans la console
+    */
+    void display();
+
+    /**
+    * @brief Résoud le labyrinth à l'aide de l'heuristique donnée 
+    * @param heuristic Heuristique à suivre pour résouudre le labyrinth
+    * @param displayed Affiche ou non la grille à chaque étape
+    */
+    void play(Heuristic& heuristic, bool displayed = false);
 };
-
-
