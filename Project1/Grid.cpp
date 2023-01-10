@@ -20,8 +20,9 @@ Grid::Grid(const std::string& file, char wallChar, char emptyChar) : wallChar(wa
 					else if (line[i] == wallChar)
 						row.push_back(Cells::WALL);
 					else{
-						std::cerr << "Error, invalid char found in file : " << line[i] << std::endl;
-						exit(1);
+						//std::cerr << "Error, invalid char found in file : " << line[i] << std::endl;
+						//exit(1);
+						throw std::exception();
 					}
 				}
 			}
@@ -42,8 +43,9 @@ Grid::Grid(const std::string& file, char wallChar, char emptyChar) : wallChar(wa
 		labyrinth[1][0] = Cells::WALL;
 	}
 	else {
-		std::cerr << "Unable to open file " + file << std::endl;
-		exit(1);
+		//std::cerr << "Unable to open file " + file << std::endl;
+		//exit(1);
+		throw std::exception();
 	}
 
 }
